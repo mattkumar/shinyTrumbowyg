@@ -1,0 +1,12 @@
+---
+title: "Dynamic Markdown with trumbowygInput()"
+output: html_document
+params:
+  n: NA
+---
+  
+
+```{r, echo=T}
+# The `params` object is available in the document.
+HTML(params$n)
+```

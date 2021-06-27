@@ -1,0 +1,104 @@
+---
+title: "Enhanced Text Editor"
+author: "Matt Kumar"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme:
+      bootswatch: sketchy
+runtime: shiny
+resource_files:
+- inst/icons.svg
+- inst/trumbowyg.colors.min.css
+- inst/trumbowyg.colors.min.js
+- inst/trumbowyg.emoji.min.js
+- inst/trumbowyg.fontsize.min.js
+- inst/trumbowyg.min.css
+- inst/trumbowyg.min.js
+- inst/trumbowyg_binding.js
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(emo)
+library(shiny)
+
+source("trumbowygInput.R")
+
+# define what buttons you would like on the widget
+btn_list <- list('strong', 'em', 'underline',
+                 'foreColor', 'backColor', 
+                 'fontsize',
+                 'emoji',
+                 'formatting',
+                 'undo', 
+                 'redo',
+                 'superscript', 'subscript',
+                 'link',
+                 'justifyLeft', 'justifyCenter', 'justifyRight',
+                 'unorderedList', 'orderedList',
+                 'fullscreen')
+
+```
+
+## Trumbowyg.js
+[Trumboywg.js](https://alex-d.github.io/Trumbowyg) is a lightweight, what-you-see-is-what-you-get, text editor written in javascript. I've adapted it for use in `rmarkdown` and `shiny` applications, potentially for my work, but mostly for fun. 
+
+```{r, echo=F}
+HTML('<p>In addition to the default options, I’ve included support for some official plugins, namely <strong><span style=\"color: rgb(79, 129, 189);\">t</span><span style=\"color: rgb(192, 80, 77);\">e</span><span style=\"color: rgb(155, 187, 89);\">x</span><span style=\"color: rgb(247, 150, 70);\">t</span> <span style=\"color: rgb(149, 55, 52);\">c</span><span style=\"color: rgb(255, 255, 0);\">o</span>l<span style=\"color: rgb(192, 145, 0);\">o</span><span style=\"color: rgb(128, 100, 162);\">r</span><span style=\"background-color: rgb(255, 255, 255); color: rgb(183, 221, 232);\">i</span></strong><span style=\"color: rgb(192, 80, 77);\">n</span><strong style=\"color: rgb(147, 137, 83);\">g</strong>,&nbsp;<span style=\"background-color: rgb(183, 221, 232);\"> text highlighting</span> and &nbsp;&nbsp;<br></p>') 
+```
+emoji's! `r emo::ji("smile")`. 
+
+
+## Try it
+```{r eruptions, echo=FALSE}
+trumbowygInput("editor", 
+                label = "Editor, all options enabled",
+                value = "try me!",
+                btns = btn_list)
+
+```
+
+
+## Under the Hood
+
+The underlying `html` code for your formatted text is returned here. It is accessible server side in R for your applications.
+
+```{r tabsets, echo=FALSE}
+output$html <- renderPrint(input$editor)
+verbatimTextOutput('html')
+```
+
+
+## Download File
+
+You can save what you've made in the editor as a `rmarkdown` html file.
+
+```{r download, echo=FALSE}
+# https://stackoverflow.com/questions/42866055/rshiny-download-button-within-rmarkdown
+downloadButtonRmd <- function (outputId, label = "Download", class = NULL, ...)  {
+     tags$a(id = outputId, class = paste("btn btn-default shiny-download-link", 
+        class), href = "", target = "_blank", download = NA, 
+        icon("download"), label, ...)
+}
+
+# https://shiny.rstudio.com/articles/generating-reports.html
+    output$report <- downloadHandler(
+        filename = "report.html",
+        content = function(file) {
+            tempReport <- file.path(tempdir(), "report.Rmd")
+            file.copy("report.Rmd", tempReport, overwrite = TRUE)
+            params <- list(n = input$editor)
+            rmarkdown::render(tempReport, output_file = file,
+                              params = params,
+                              envir = new.env(parent = globalenv())
+            )
+        }
+    )
+downloadButtonRmd('report','Render Example')
+```
+
+## More
+You can see the code on my github repository [here](https://github.com/mattkumar/shinyTrumbowyg)
+
