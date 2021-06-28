@@ -50,6 +50,7 @@ HTML('<p>In addition to the default options, I’ve included support for some of
 ```
 emoji's! `r emo::ji("smile")`
 
+<br>
 
 ## Try it
 ```{r eruptions, echo=FALSE}
@@ -60,6 +61,7 @@ trumbowygInput("editor",
 
 ```
 
+<br>
 
 ## Under the Hood
 
@@ -69,7 +71,7 @@ The underlying `html` for the formatted text is returned here. It is accessible 
 output$html <- renderPrint(input$editor)
 verbatimTextOutput('html')
 ```
-
+<br>
 
 ## Application
 
@@ -99,7 +101,7 @@ downloadButtonRmd <- function (outputId, label = "Download", class = NULL, ...) 
     )
 downloadButtonRmd('report','Render Example')
 ```
-
+<br>
 
 ## Code
 <span><i class="fa fa-github fa-2x" aria-hidden="true"></i> View the repository [here](https://github.com/mattkumar/shinyTrumbowyg)</span>
