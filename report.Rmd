@@ -6,7 +6,7 @@ params:
 ---
   
 
-```{r, echo=T}
+```{r, echo=F}
 # The `params` object is available in the document.
 HTML(params$n)
 ```

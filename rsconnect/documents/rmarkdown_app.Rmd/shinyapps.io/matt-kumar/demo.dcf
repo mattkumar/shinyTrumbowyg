@@ -1,0 +1,13 @@
+name: demo
+title: demo
+username:
+account: matt-kumar
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4326788
+bundleId: 4762850
+url: https://matt-kumar.shinyapps.io/demo/
+when: 1624845517.59514
+lastSyncTime: 1624845517.59514
+asMultiple: TRUE
+asStatic: FALSE

@@ -46,15 +46,15 @@ btn_list <- list('strong', 'em', 'underline',
 [Trumboywg.js](https://alex-d.github.io/Trumbowyg) is a lightweight, what-you-see-is-what-you-get, text editor written in javascript. I've adapted it for use in `rmarkdown` and `shiny` applications, potentially for my work, but mostly for fun. 
 
 ```{r, echo=F}
-HTML('<p>In addition to the default options, I’ve included support for some official plugins, namely <strong><span style=\"color: rgb(79, 129, 189);\">t</span><span style=\"color: rgb(192, 80, 77);\">e</span><span style=\"color: rgb(155, 187, 89);\">x</span><span style=\"color: rgb(247, 150, 70);\">t</span> <span style=\"color: rgb(149, 55, 52);\">c</span><span style=\"color: rgb(255, 255, 0);\">o</span>l<span style=\"color: rgb(192, 145, 0);\">o</span><span style=\"color: rgb(128, 100, 162);\">r</span><span style=\"background-color: rgb(255, 255, 255); color: rgb(183, 221, 232);\">i</span></strong><span style=\"color: rgb(192, 80, 77);\">n</span><strong style=\"color: rgb(147, 137, 83);\">g</strong>,&nbsp;<span style=\"background-color: rgb(183, 221, 232);\"> text highlighting</span> and &nbsp;&nbsp;<br></p>') 
+HTML('<p>In addition to the default options, I’ve included support for some official plugins, namely <strong><span style=\"color: rgb(79, 129, 189);\">t</span><span style=\"color: rgb(192, 80, 77);\">e</span><span style=\"color: rgb(155, 187, 89);\">x</span><span style=\"color: rgb(247, 150, 70);\">t</span> <span style=\"color: rgb(149, 55, 52);\">c</span><span style=\"color: rgb(255, 255, 0);\">o</span>l<span style=\"color: rgb(192, 145, 0);\">o</span><span style=\"color: rgb(128, 100, 162);\">r</span><span style=\"background-color: rgb(255, 255, 255); color: rgb(183, 221, 232);\">i</span></strong><span style=\"color: rgb(192, 80, 77);\">n</span><strong style=\"color: rgb(147, 137, 83);\">g</strong>,&nbsp;<span style=\"background-color: rgb(183, 221, 232);\">text highlighting</span> and... &nbsp;&nbsp;<br></p>') 
 ```
-emoji's! `r emo::ji("smile")`. 
+emoji's! `r emo::ji("smile")`
 
 
 ## Try it
 ```{r eruptions, echo=FALSE}
 trumbowygInput("editor", 
-                label = "Editor, all options enabled",
+                label = "All options enabled",
                 value = "try me!",
                 btns = btn_list)
 
@@ -63,7 +63,7 @@ trumbowygInput("editor",
 
 ## Under the Hood
 
-The underlying `html` code for your formatted text is returned here. It is accessible server side in R for your applications.
+The underlying `html` for the formatted text is returned here. It is accessible server side in R for your applications.
 
 ```{r tabsets, echo=FALSE}
 output$html <- renderPrint(input$editor)
@@ -71,9 +71,10 @@ verbatimTextOutput('html')
 ```
 
 
-## Download File
+## Application
 
-You can save what you've made in the editor as a `rmarkdown` html file.
+This example simply takes the underlying `html` returned by the editor above and renders it in an `rmarkdown` template. 
+
 
 ```{r download, echo=FALSE}
 # https://stackoverflow.com/questions/42866055/rshiny-download-button-within-rmarkdown
@@ -99,6 +100,7 @@ downloadButtonRmd <- function (outputId, label = "Download", class = NULL, ...) 
 downloadButtonRmd('report','Render Example')
 ```
 
-## More
-You can see the code on my github repository [here](https://github.com/mattkumar/shinyTrumbowyg)
+
+## Code
+<span><i class="fa fa-github fa-2x" aria-hidden="true"></i> View the repository [here](https://github.com/mattkumar/shinyTrumbowyg)</span>
 
