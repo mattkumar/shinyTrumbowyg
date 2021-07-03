@@ -1,4 +1,5 @@
 library(shiny)
+library(bslib)
 source("trumbowygInput.R")
 
 # define what buttons you would like on the widget
